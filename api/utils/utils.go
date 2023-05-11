@@ -1,12 +1,17 @@
 package utils
 
 import (
+	"crypto/rand"
 	"demoproject/api/constant"
 	"fmt"
 	"log"
+	"unsafe"
 
+	"github.com/google/uuid"
 	"github.com/spf13/viper"
 )
+
+var alphabet = []byte("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 func ImportEnv() { // setting up the envionment variables
 	viper.SetConfigName(".env")
@@ -27,4 +32,22 @@ func ImportEnv() { // setting up the envionment variables
 		}
 	}
 
+}
+
+func GenerateUUID() string {
+	uuid, err := uuid.NewRandom()
+	if err != nil {
+		panic("Failed to generate UUID")
+	}
+	return uuid.String()
+}
+
+func RandStr() string {
+	size := 50 // specifing the length of the string
+	b := make([]byte, size)
+	rand.Read(b)
+	for i := 0; i < size; i++ {
+		b[i] = alphabet[b[i]%byte(len(alphabet))]
+	}
+	return *(*string)(unsafe.Pointer(&b))
 }

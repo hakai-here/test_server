@@ -8,4 +8,5 @@ var ENV = []string{ //  envionment variable name
 	"DB_NAME",
 	"DB_PORT",
 	"DB_HOST",
+	"SALTVALUE",
 }
