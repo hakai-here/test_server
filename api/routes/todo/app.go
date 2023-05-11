@@ -15,6 +15,9 @@ func MountApp() *fiber.App {
 		fmt.Println(c.Locals("userid"))
 		return c.SendString("hello")
 	})
-
+	app.Post("/create", createTodo)
+	app.Get("/read", readTodo)
+	app.Delete("/delete", deletetodo)
+	app.Put("/update", updatetodo)
 	return app
 }
